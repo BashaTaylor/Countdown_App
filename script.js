@@ -252,6 +252,15 @@ document.getElementById('backButton').addEventListener('click', function () {
 });
 
 // Function to handle view all button click
+document.getElementById('viewAllButtonPage1').addEventListener('click', function () {
+    // Switch to page 3 (all countdowns)
+    showPage('page3');
+
+    // Display all countdowns on page 3
+    displayAllCountdowns();
+});
+
+// Function to handle view all button click
 document.getElementById('viewAllButtonPage2').addEventListener('click', function () {
     // Switch to page 3 (all countdowns)
     showPage('page3');
@@ -310,119 +319,5 @@ function addNoteToNewCountdown(noteText) {
     // For demonstration, let's alert the note text
     alert(`Note added: ${noteText}`);
     // You would typically add this note to your countdownsData array and update UI accordingly
-}
-
-// JavaScript for handling Add Countdown form submission
-document.getElementById('addCountdownForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const eventTitle = document.getElementById('eventTitle').value;
-    const eventDate = document.getElementById('eventDate').value;
-    const eventTime = document.getElementById('eventTime').value;
-    const eventEmoji = document.getElementById('eventEmoji').value;
-    const noteText = document.getElementById('noteText').value;
-
-    // Combine date and time into a single date-time string
-    const eventDateTime = `${eventDate}T${eventTime}`;
-
-    // Add the new countdown to the data array
-    countdownsData.push({
-        title: eventTitle,
-        date: eventDateTime,
-        emoji: eventEmoji,
-        notes: [noteText] // Include note in notes array
-    });
-
-    // Switch to page 2 (countdowns display)
-    showPage('page2');
-
-    // Update the display on page 2
-    displayCountdowns();
-
-    // Clear form fields
-    document.getElementById('addCountdownForm').reset();
-});
-
-// Function to display countdowns on page 2
-function displayCountdowns() {
-    const countdownsContainer = document.getElementById('countdowns');
-    countdownsContainer.innerHTML = '';
-
-    countdownsData.forEach((countdown, index) => {
-        const endTime = new Date(countdown.date);
-        const time = getTimeRemaining(endTime);
-
-        const formattedDate = endTime.toLocaleString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
-        });
-
-        const countdownElem = document.createElement('div');
-        countdownElem.classList.add('countdown-item');
-        countdownElem.innerHTML = `
-            <h3>${countdown.title}</h3>
-            <div class="emoji">${countdown.emoji}</div>
-            <p>${formattedDate}</p>
-            <div class="notes">
-                <p>${countdown.notes}</p> <!-- Display note -->
-            </div>
-            <div class="countdown">
-                <span>${time.days}d</span>
-                <span>${time.hours}h</span>
-                <span>${time.minutes}m</span>
-                <span>${time.seconds}s</span>
-            </div>
-            <div class="countdown-menu">
-                <button class="add-note-btn" data-index="${index}">Add a Note</button>
-                <button class="archive-btn" data-index="${index}">Archive</button>
-                <button class="delete-btn" data-index="${index}">Delete</button>
-            </div>
-            <button class="edit-btn" data-index="${index}">Edit</button>
-        `;
-        countdownsContainer.appendChild(countdownElem);
-
-        // Add event listener for add note button
-        const addNoteBtn = countdownElem.querySelector('.add-note-btn');
-        addNoteBtn.addEventListener('click', function () {
-            addNoteToCountdown(index);
-        });
-
-        // Add event listener for archive button
-        const archiveBtn = countdownElem.querySelector('.archive-btn');
-        archiveBtn.addEventListener('click', function () {
-            archiveCountdown(index);
-        });
-
-        // Add event listener for delete button
-        const deleteBtn = countdownElem.querySelector('.delete-btn');
-        deleteBtn.addEventListener('click', function () {
-            deleteCountdown(index);
-        });
-
-        // Add event listener for edit button
-        const editBtn = countdownElem.querySelector('.edit-btn');
-        editBtn.addEventListener('click', function () {
-            editCountdown(index);
-        });
-    });
-}
-
-// Function to add a note to a countdown
-function addNoteToCountdown(index) {
-    const countdownTitle = countdownsData[index].title;
-    const noteText = prompt(`Add a note to "${countdownTitle}":`);
-
-    if (noteText) {
-        countdownsData[index].notes.push(noteText);
-        // Update UI to display added note
-        displayCountdowns();
-    } else {
-        alert('Note addition canceled.');
-    }
 }
 
