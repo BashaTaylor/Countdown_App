@@ -1,7 +1,7 @@
 /* Basic reset and styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #9fe5f5;
     margin: 0;
     padding: 0;
 }
@@ -20,7 +20,7 @@ body {
 .countdown-item {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -51,7 +51,7 @@ body {
 .add-form {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -81,16 +81,16 @@ body {
 }
 
 .page-buttons button {
-    background-color: #4CAF50;
+    background-color: #3df8ec;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 15px;
     margin-right: 10px;
     /* Add spacing between buttons */
 }
 
 .page-buttons button:hover {
-    background-color: #45a049;
+    background-color: #3df8ec;
 }
