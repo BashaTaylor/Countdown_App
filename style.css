@@ -103,33 +103,21 @@ input {
 .archive-btn,
 .delete-btn {
     background-color:#007BFF;
-    border-radius: 10px;
-    padding: 5px;
+    border-radius: 7px;
+    padding: 7px;
     margin-top: 10px;
 }
 
 .page-buttons button {
-    background-color: #007BFF;
-    /* Updated button background color */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 10px;
-    /* Updated border radius */
-    margin-right: 10px;
-    /* Add spacing between buttons */
-}
-
-.page-buttons button:hover {
-    background-color: #0056b3;
-    /* Darker shade on hover */
+    padding: 7px;
+    margin-right: 7px;
+    border-radius: 7px;
 }
 
 #backToPage2 {
     background-color: #007BFF;
-    padding: 5px;
-    border-radius: 10px;
+    padding: 7px;
+    border-radius: 7px;
     color: white;
 }
 
@@ -139,14 +127,22 @@ input {
 
 .button-row {
     display: flex;
-    gap: 10px; /* Adjust spacing between buttons */
+    gap: 7px; /* Adjust spacing between buttons */
+    margin-top: 7px;
+    padding: 7px;
 }
 
 /* Style individual buttons */
-.countdown-item .button-row button {
-    padding: 8px 12px;
+button {
+    padding: 7px;
+    border-radius: 7px;
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
 }

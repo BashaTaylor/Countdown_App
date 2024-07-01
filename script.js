@@ -49,12 +49,12 @@ function displayCountdowns() {
                 <span>${time.minutes}m</span>
                 <span>${time.seconds}s</span>
             </div>
-            <div class="countdown-menu">
+            <div class="button-row">
                 <button class="add-note-btn" data-index="${index}">Add a Note</button>
                 <button class="archive-btn" data-index="${index}">Archive</button>
                 <button class="delete-btn" data-index="${index}">Delete</button>
+                <button class="edit-btn" data-index="${index}">Edit</button>
             </div>
-            <button class="edit-btn" data-index="${index}">Edit</button>
         `;
         countdownsContainer.appendChild(countdownElem);
 
