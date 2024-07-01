@@ -44,10 +44,10 @@ function displayCountdowns() {
             <p>${formattedDate}</p>
             <div class="notes"></div> <!-- Container for notes -->
             <div class="countdown">
-                <span>${time.days}d</span>
-                <span>${time.hours}h</span>
-                <span>${time.minutes}m</span>
-                <span>${time.seconds}s</span>
+                <span class="days">${time.days}d</span>
+                <span class="hours">${time.hours}h</span>
+                <span class="minutes">${time.minutes}m</span>
+                <span class="seconds">${time.seconds}s</span>
             </div>
             <div class="button-row">
                 <button class="add-note-btn" data-index="${index}">Add a Note</button>
@@ -119,21 +119,18 @@ function displayAllCountdowns() {
         // Display existing notes
         const notesContainer = countdownElem.querySelector('.notes');
         displayNotes(notesContainer, index, 'page3');
-    
 
+        // Update countdown timer every second for each countdown on page 3
         setInterval(() => {
             const endTime = new Date(countdown.date);
             const time = getTimeRemaining(endTime);
 
-            const countdownElem = document.getElementById(`countdown-${index}`);
-            if (countdownElem) {
-                countdownElem.querySelector('.countdown .days').textContent = `${time.days}d`;
-                countdownElem.querySelector('.countdown .hours').textContent = `${time.hours}h`;
-                countdownElem.querySelector('.countdown .minutes').textContent = `${time.minutes}m`;
-                countdownElem.querySelector('.countdown .seconds').textContent = `${time.seconds}s`;
-            }
-    }, 1000); // Update every second (1000 ms)
-});
+            countdownElem.querySelector('.countdown .days').textContent = `${time.days}d`;
+            countdownElem.querySelector('.countdown .hours').textContent = `${time.hours}h`;
+            countdownElem.querySelector('.countdown .minutes').textContent = `${time.minutes}m`;
+            countdownElem.querySelector('.countdown .seconds').textContent = `${time.seconds}s`;
+        }, 1000); // Update every second (1000 ms)
+    });
 }
 
 // Function to create a countdown element
