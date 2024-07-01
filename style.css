@@ -21,37 +21,67 @@ body {
 .countdown-menu {
     margin-top: 10px;
 }
+
 .countdown-item {
-    /* Existing styles */
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    text-align: center; /* Center contents */
     width: 90%;
     max-width: 600px;
-    /* New styles for column layout */
-    display: block;
-    margin: 0 auto 20px;
+    margin: 20px auto; /* Center the countdown item */
 }
-
-
 .countdown-item h3 {
     margin-top: 0;
     color: #333;
     /* Adjusted text color */
 }
 
-.countdown-item p {
-    margin-bottom: 10px;
+.countdown-item .emoji {
+    font-size: 48px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #007BFF;
+    color: white;
 }
 
-.countdown-item .emoji {
+.countdown-item h3 {
+    color: #333;
     font-size: 24px;
-    /* Adjust size as needed */
-    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.countdown-item p {
+    margin-bottom: 5px;
+}
+
+.countdown-item .countdown {
+    background-color: #007BFF;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.countdown-item .notes {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    min-height: 50px; /* Ensure visibility */
+}
+
+.countdown-item .countdown span {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 5px;
 }
 
 input {
@@ -127,9 +157,14 @@ input {
 
 .button-row {
     display: flex;
-    gap: 7px; /* Adjust spacing between buttons */
-    margin-top: 7px;
-    padding: 7px;
+    justify-content: center;
+    margin-top: 10px;
+    /* padding: 7px;
+    gap: 7px;  */
+}
+
+.button-row button {
+    margin: 0 5px;
 }
 
 /* Style individual buttons */

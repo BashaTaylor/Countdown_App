@@ -59,7 +59,7 @@ function displayCountdowns() {
         countdownsContainer.appendChild(countdownElem);
 
         // Display existing notes
-        displayNotes(index);
+        displayNotes(countdownElem.querySelector('.notes'), index, 'page2');
 
         // Add event listener for add note button
         const addNoteBtn = countdownElem.querySelector('.add-note-btn');
@@ -95,9 +95,9 @@ function updateCountdowns() {
 
 // Call this to start updating countdowns
 updateCountdowns();
+
 // Function to display notes for a specific countdown
-function displayNotes(index) {
-    const notesContainer = document.querySelectorAll('.countdown-item .notes')[index];
+function displayNotes(notesContainer, index, pageId) {
     notesContainer.innerHTML = ''; // Clear existing notes
 
     countdownsData[index].notes.forEach(note => {
@@ -117,25 +117,23 @@ function displayAllCountdowns() {
         allCountdownsContainer.appendChild(countdownElem);
 
         // Display existing notes
-        displayNotes(index);
-    });
+        const notesContainer = countdownElem.querySelector('.notes');
+        displayNotes(notesContainer, index, 'page3');
+    
 
-    // Update countdowns every second
-    setInterval(() => {
-        countdownsData.forEach((countdown, index) => {
-            const countdownElem = allCountdownsContainer.querySelector(`#countdown-${index}`);
+        setInterval(() => {
+            const endTime = new Date(countdown.date);
+            const time = getTimeRemaining(endTime);
+
+            const countdownElem = document.getElementById(`countdown-${index}`);
             if (countdownElem) {
-                const endTime = new Date(countdown.date);
-                const time = getTimeRemaining(endTime);
-
-                // Update the countdown timer elements
                 countdownElem.querySelector('.countdown .days').textContent = `${time.days}d`;
                 countdownElem.querySelector('.countdown .hours').textContent = `${time.hours}h`;
                 countdownElem.querySelector('.countdown .minutes').textContent = `${time.minutes}m`;
                 countdownElem.querySelector('.countdown .seconds').textContent = `${time.seconds}s`;
             }
-        });
     }, 1000); // Update every second (1000 ms)
+});
 }
 
 // Function to create a countdown element
@@ -167,18 +165,21 @@ function createCountdownElement(countdown, index) {
             <span class="minutes">${time.minutes}m</span>
             <span class="seconds">${time.seconds}s</span>
         </div>
-        <button class="edit-btn" data-index="${index}">Edit</button>
     `;
 
-    // Add event listener for edit button
-    const editBtn = countdownElem.querySelector('.edit-btn');
-    editBtn.addEventListener('click', function () {
-        editCountdown(index);
-    });
+    // Add edit button on page 2
+    if (document.getElementById('page2').style.display !== 'none') {
+        countdownElem.innerHTML += `<button class="edit-btn" data-index="${index}">Edit</button>`;
+
+        // Add event listener for edit button
+        const editBtn = countdownElem.querySelector('.edit-btn');
+        editBtn.addEventListener('click', function () {
+            editCountdown(index);
+        });
+    }
 
     return countdownElem;
 }
-
 
 // Function to handle form submission
 document.getElementById('addCountdownForm').addEventListener('submit', function (event) {
@@ -243,8 +244,9 @@ function addNoteToCountdown(index) {
 
     if (noteText) {
         countdownsData[index].notes.push(noteText);
-        // Update UI to display added note
-        displayNotes(index);
+        // Update UI to display added note on both page 2 and page 3
+        displayNotes(document.getElementById(`countdown-${index}`).querySelector('.notes'), index, 'page2');
+        displayNotes(document.getElementById(`countdown-${index}`).querySelector('.notes'), index, 'page3');
     } else {
         alert('Note addition canceled.');
     }
@@ -281,15 +283,13 @@ function deleteCountdown(index) {
     }
 }
 
-
-
 // Function to handle back button click
 document.getElementById('backButton').addEventListener('click', function () {
     // Switch back to page 1 (add countdown form)
     showPage('page1');
 });
 
-// Function to handle view all button click
+// Function to handle view all button click on page 1
 document.getElementById('viewAllButtonPage1').addEventListener('click', function () {
     // Switch to page 3 (all countdowns)
     showPage('page3');
@@ -298,7 +298,7 @@ document.getElementById('viewAllButtonPage1').addEventListener('click', function
     displayAllCountdowns();
 });
 
-// Function to handle view all button click
+// Function to handle view all button click on page 2
 document.getElementById('viewAllButtonPage2').addEventListener('click', function () {
     // Switch to page 3 (all countdowns)
     showPage('page3');
