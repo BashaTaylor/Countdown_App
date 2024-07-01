@@ -113,25 +113,58 @@ function displayAllCountdowns() {
     allCountdownsContainer.innerHTML = '';
 
     countdownsData.forEach((countdown, index) => {
-        const countdownElem = createCountdownElement(countdown, index);
+        const endTime = new Date(countdown.date);
+        const time = getTimeRemaining(endTime);
+
+        const formattedDate = endTime.toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        });
+
+        const countdownElem = document.createElement('div');
+        countdownElem.classList.add('countdown-item');
+        countdownElem.innerHTML = `
+            <div class="countdown-icon">
+                <div class="icon-circle">
+                    <span class="emoji">${countdown.emoji}</span>
+                </div>
+            </div>
+            <div class="countdown-details">
+                <h3 class="countdown-title">${countdown.title}</h3>
+                <p class="countdown-note">${countdown.notes.length > 0 ? countdown.notes[0] : 'No notes'}</p>
+                <p class="countdown-date-time">${formattedDate}</p>
+            </div>
+            <div class="countdown-days-left">
+                <p class="days-number">${time.days}</p>
+                <p class="days-text">days left</p>
+            </div>
+        `;
         allCountdownsContainer.appendChild(countdownElem);
 
-        // Display existing notes
-        const notesContainer = countdownElem.querySelector('.notes');
-        displayNotes(notesContainer, index, 'page3');
-
-        // Update countdown timer every second for each countdown on page 3
-        setInterval(() => {
-            const endTime = new Date(countdown.date);
-            const time = getTimeRemaining(endTime);
-
-            countdownElem.querySelector('.countdown .days').textContent = `${time.days}d`;
-            countdownElem.querySelector('.countdown .hours').textContent = `${time.hours}h`;
-            countdownElem.querySelector('.countdown .minutes').textContent = `${time.minutes}m`;
-            countdownElem.querySelector('.countdown .seconds').textContent = `${time.seconds}s`;
-        }, 1000); // Update every second (1000 ms)
+        // Add click event listener to display this countdown on page 2
+        countdownElem.addEventListener('click', function () {
+            displayCountdownOnPage2(index);
+        });
     });
 }
+
+// Function to display a specific countdown on page 2
+function displayCountdownOnPage2(index) {
+    // Set countdownData to show only the selected countdown
+    countdownsData = [countdownsData[index]];
+
+    // Switch to page 2 (countdown display)
+    showPage('page2');
+
+    // Update the display on page 2
+    displayCountdown();
+}
+
 
 // Function to create a countdown element
 function createCountdownElement(countdown, index) {
