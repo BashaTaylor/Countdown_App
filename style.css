@@ -131,3 +131,9 @@ input {
     background-color: #0056b3;
 }
 
+#eventEmoji {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+}
