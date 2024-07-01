@@ -76,15 +76,21 @@ body {
     box-sizing: border-box;
 }
 
-.add-form button {
+.page-buttons {
+    margin-top: 20px;
+}
+
+.page-buttons button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-right: 10px;
+    /* Add spacing between buttons */
 }
 
-.add-form button:hover {
+.page-buttons button:hover {
     background-color: #45a049;
 }

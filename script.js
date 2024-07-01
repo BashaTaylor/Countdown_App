@@ -41,13 +41,12 @@ function displayCountdowns() {
         countdownElem.innerHTML = `
         <h3>${countdown.title}</h3>
         <div class="emoji">${countdown.emoji}</div>
-        <img src="${countdown.image}" alt="${countdown.title}" class="event-image">
         <p>${formattedDate}</p>
         <div class="countdown">
         <span>${time.days}d</span>
         <span>${time.hours}h</span>
         <span>${time.minutes}m</span>
-        <span>${time.seconds}s</span>
+            <span>${time.seconds}s</span>
         </div>
         <button class="edit-btn" data-index="${index}">Edit</button>
     `;
@@ -69,15 +68,17 @@ document.getElementById('addCountdownForm').addEventListener('submit', function 
 
     const eventTitle = document.getElementById('eventTitle').value;
     const eventDate = document.getElementById('eventDate').value;
+    const eventTime = document.getElementById('eventTime').value;
     const eventEmoji = document.getElementById('eventEmoji').value;
-    const eventImage = document.getElementById('eventImage').value;
+
+    // Combine date and time into a single date-time string
+    const eventDateTime = `${eventDate}T${eventTime}`;
 
     // Add the new countdown to the data array
     countdownsData.push({
         title: eventTitle,
-        date: eventDate,
-        emoji: eventEmoji,
-        image: eventImage
+        date: eventDateTime,
+        emoji: eventEmoji
     });
 
     // Switch to page 2 (countdowns display)
@@ -99,21 +100,31 @@ function editCountdown(index) {
         // Simulate editing for demonstration (replace with your edit logic)
         const newTitle = prompt('Enter new title:', editedCountdown.title);
         const newDate = prompt('Enter new date:', editedCountdown.date);
-        const newEmoji = prompt('Enter new emoji:', editedCountdown.emoji);
-        const newImage = prompt('Enter new image URL:', editedCountdown.image);
+        const newTime = prompt('Enter new time:', editedCountdown.date.split('T')[1]); // Extract time part
 
         // Update the countdown data
         countdownsData[index] = {
             title: newTitle || editedCountdown.title,
-            date: newDate || editedCountdown.date,
-            emoji: newEmoji || editedCountdown.emoji,
-            image: newImage || editedCountdown.image
+            date: newDate ? `${newDate}T${newTime}` : editedCountdown.date, // Combine date and existing time
+            emoji: newEmoji || editedCountdown.emoji
         };
 
         // Update the display
         displayCountdowns();
     }
 }
+
+// Function to handle save button click
+document.getElementById('saveButton').addEventListener('click', function () {
+    // For demonstration, alert that data is saved (replace with actual save logic)
+    alert('Changes saved successfully!');
+});
+
+// Function to handle back button click
+document.getElementById('backButton').addEventListener('click', function () {
+    // Switch back to page 1 (add countdown form)
+    showPage('page1');
+});
 
 // Function to switch between pages
 function showPage(pageId) {
@@ -129,4 +140,19 @@ showPage('page1');
 // Initialize Twemoji for emoji support
 document.addEventListener('DOMContentLoaded', function () {
     twemoji.parse(document.body);
+});
+
+// Add event listener for tabbing between date and time inputs
+document.getElementById('eventDate').addEventListener('keydown', function (event) {
+    if (event.key === 'Tab' && !event.shiftKey) {
+        event.preventDefault();
+        document.getElementById('eventTime').focus();
+    }
+});
+
+document.getElementById('eventTime').addEventListener('keydown', function (event) {
+    if (event.key === 'Tab' && event.shiftKey) {
+        event.preventDefault();
+        document.getElementById('eventDate').focus();
+    }
 });

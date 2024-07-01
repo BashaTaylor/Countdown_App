@@ -18,13 +18,11 @@
             <input type="text" id="eventTitle" name="eventTitle" required><br><br>
 
             <label for="eventDate">Event Date:</label>
-            <input type="datetime-local" id="eventDate" name="eventDate" required><br><br>
+            <input type="date" id="eventDate" name="eventDate" required>
+            <input type="time" id="eventTime" name="eventTime" required><br><br>
 
-            <label for="eventImage">Event Emoji:</label>
+            <label for="eventEmoji">Event Emoji:</label>
             <input type="text" id="eventEmoji" name="eventEmoji" placeholder="Select an emoji"><br><br>
-
-            <label for="eventImage">Event Image URL:</label>
-            <input type="text" id="eventImage" name="eventImage"><br><br>
 
             <button type="submit">Add Countdown</button>
         </form>
@@ -33,6 +31,10 @@
     <div id="page2" class="page">
         <h2>Countdowns</h2>
         <div id="countdowns"></div>
+        <div class="page-buttons">
+            <button id="backButton">Back</button>
+            <button id="saveButton">Save Changes</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
