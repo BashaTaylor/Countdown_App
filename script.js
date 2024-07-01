@@ -239,11 +239,7 @@ function deleteCountdown(index) {
     }
 }
 
-// Function to handle save button click
-document.getElementById('saveButton').addEventListener('click', function () {
-    // For demonstration, alert that data is saved (replace with actual save logic)
-    alert('Changes saved successfully!');
-});
+
 
 // Function to handle back button click
 document.getElementById('backButton').addEventListener('click', function () {
@@ -320,4 +316,3 @@ function addNoteToNewCountdown(noteText) {
     alert(`Note added: ${noteText}`);
     // You would typically add this note to your countdownsData array and update UI accordingly
 }
-
