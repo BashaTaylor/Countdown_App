@@ -11,6 +11,7 @@ body {
     text-align: center;
     /* Center contents */
     padding: 20px;
+    background: linear-gradient(to right, rgb(7, 118, 253), white , rgba(144, 249, 249, 0.821) );
 }
 
 .page.active {
@@ -49,6 +50,11 @@ body {
     margin-bottom: 10px;
 }
 
+input {
+    border-radius: 5px;
+    border-color: lightgray;
+}
+
 .add-form {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -78,10 +84,22 @@ body {
     box-sizing: border-box;
 }
 
+.add-form button {
+    background-color: #007BFF;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 .page-buttons {
     margin-top: 20px;
 }
 
+.edit-btn {
+    background-color:#007BFF;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 10px;
+}
 .page-buttons button {
     background-color: #007BFF;
     /* Updated button background color */
@@ -98,4 +116,15 @@ body {
 .page-buttons button:hover {
     background-color: #0056b3;
     /* Darker shade on hover */
+}
+
+#backToPage2 {
+    background-color: #007BFF;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+}
+
+#backToPage2:hover {
+    background-color: #0056b3;
 }

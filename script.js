@@ -17,7 +17,7 @@ function getTimeRemaining(endTime) {
     };
 }
 
-// Function to display countdowns
+// Function to display countdowns on page 2
 function displayCountdowns() {
     const countdownsContainer = document.getElementById('countdowns');
     countdownsContainer.innerHTML = '';
@@ -39,24 +39,96 @@ function displayCountdowns() {
         const countdownElem = document.createElement('div');
         countdownElem.classList.add('countdown-item');
         countdownElem.innerHTML = `
-        <h3>${countdown.title}</h3>
-        <div class="emoji">${countdown.emoji}</div>
-        <p>${formattedDate}</p>
-        <div class="countdown">
-        <span>${time.days}d</span>
-        <span>${time.hours}h</span>
-        <span>${time.minutes}m</span>
-            <span>${time.seconds}s</span>
-        </div>
-        <button class="edit-btn" data-index="${index}">Edit</button>
-    `;
+            <h3>${countdown.title}</h3>
+            <div class="emoji">${countdown.emoji}</div>
+            <p>${formattedDate}</p>
+            <div class="notes"></div> <!-- Container for notes -->
+            <div class="countdown">
+                <span>${time.days}d</span>
+                <span>${time.hours}h</span>
+                <span>${time.minutes}m</span>
+                <span>${time.seconds}s</span>
+            </div>
+            <div class="countdown-menu">
+                <button class="add-note-btn" data-index="${index}">Add a Note</button>
+                <button class="archive-btn" data-index="${index}">Archive</button>
+                <button class="delete-btn" data-index="${index}">Delete</button>
+            </div>
+            <button class="edit-btn" data-index="${index}">Edit</button>
+        `;
         countdownsContainer.appendChild(countdownElem);
-    });
 
-    // Add event listeners to edit buttons
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const index = this.getAttribute('data-index');
+        // Display existing notes
+        displayNotes(index);
+
+        // Add event listener for add note button
+        const addNoteBtn = countdownElem.querySelector('.add-note-btn');
+        addNoteBtn.addEventListener('click', function () {
+            addNoteToCountdown(index);
+        });
+
+        // Add event listener for archive button
+        const archiveBtn = countdownElem.querySelector('.archive-btn');
+        archiveBtn.addEventListener('click', function () {
+            archiveCountdown(index);
+        });
+
+        // Add event listener for delete button
+        const deleteBtn = countdownElem.querySelector('.delete-btn');
+        deleteBtn.addEventListener('click', function () {
+            deleteCountdown(index);
+        });
+
+        // Add event listener for edit button
+        const editBtn = countdownElem.querySelector('.edit-btn');
+        editBtn.addEventListener('click', function () {
+            editCountdown(index);
+        });
+    });
+}
+
+// Function to display notes for a specific countdown
+function displayNotes(index) {
+    const notesContainer = document.querySelectorAll('.countdown-item .notes')[index];
+    notesContainer.innerHTML = ''; // Clear existing notes
+
+    countdownsData[index].notes.forEach(note => {
+        const noteElem = document.createElement('p');
+        noteElem.textContent = note;
+        notesContainer.appendChild(noteElem);
+    });
+}
+
+// Function to display all countdowns on page 3
+function displayAllCountdowns() {
+    const allCountdownsContainer = document.getElementById('allCountdowns');
+    allCountdownsContainer.innerHTML = '';
+
+    countdownsData.forEach((countdown, index) => {
+        const endTime = new Date(countdown.date);
+        const formattedDate = endTime.toLocaleString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        });
+
+        const countdownElem = document.createElement('div');
+        countdownElem.classList.add('countdown-item');
+        countdownElem.innerHTML = `
+            <h3>${countdown.title}</h3>
+            <div class="emoji">${countdown.emoji}</div>
+            <p>${formattedDate}</p>
+            <button class="edit-btn" data-index="${index}">Edit</button>
+        `;
+        allCountdownsContainer.appendChild(countdownElem);
+
+        // Add event listener for edit button
+        const editBtn = countdownElem.querySelector('.edit-btn');
+        editBtn.addEventListener('click', function () {
             editCountdown(index);
         });
     });
@@ -78,13 +150,14 @@ document.getElementById('addCountdownForm').addEventListener('submit', function 
     countdownsData.push({
         title: eventTitle,
         date: eventDateTime,
-        emoji: eventEmoji
+        emoji: eventEmoji,
+        notes: [] // Initialize notes array
     });
 
     // Switch to page 2 (countdowns display)
     showPage('page2');
 
-    // Update the display
+    // Update the display on page 2
     displayCountdowns();
 
     // Clear form fields
@@ -106,10 +179,52 @@ function editCountdown(index) {
         countdownsData[index] = {
             title: newTitle || editedCountdown.title,
             date: newDate ? `${newDate}T${newTime}` : editedCountdown.date, // Combine date and existing time
-            emoji: newEmoji || editedCountdown.emoji
+            emoji: editedCountdown.emoji,
+            notes: editedCountdown.notes // Retain existing notes
         };
 
-        // Update the display
+        // Update the display on page 2
+        displayCountdowns();
+    }
+}
+
+// Function to add a note to a countdown
+function addNoteToCountdown(index) {
+    const countdownTitle = countdownsData[index].title;
+    const noteText = prompt(`Add a note to "${countdownTitle}":`);
+
+    if (noteText) {
+        countdownsData[index].notes.push(noteText);
+        // Update UI to display added note
+        displayNotes(index);
+    } else {
+        alert('Note addition canceled.');
+    }
+}
+
+// Function to archive a countdown
+function archiveCountdown(index) {
+    const confirmArchive = confirm(`Do you want to archive "${countdownsData[index].title}"?`);
+
+    if (confirmArchive) {
+        // Archive logic here (can be implemented as needed)
+        alert(`"${countdownsData[index].title}" archived.`);
+        // For demonstration, let's remove from countdownsData array
+        countdownsData.splice(index, 1);
+
+        // Update the display on page 2
+        displayCountdowns();
+    }
+}
+
+// Function to delete a countdown
+function deleteCountdown(index) {
+    const confirmDelete = confirm(`Do you want to delete "${countdownsData[index].title}"?`);
+
+    if (confirmDelete) {
+        countdownsData.splice(index, 1); // Remove from countdownsData array
+
+        // Update the display on page 2
         displayCountdowns();
     }
 }
@@ -124,6 +239,21 @@ document.getElementById('saveButton').addEventListener('click', function () {
 document.getElementById('backButton').addEventListener('click', function () {
     // Switch back to page 1 (add countdown form)
     showPage('page1');
+});
+
+// Function to handle view all button click
+document.getElementById('viewAllButton').addEventListener('click', function () {
+    // Switch to page 3 (all countdowns)
+    showPage('page3');
+
+    // Display all countdowns on page 3
+    displayAllCountdowns();
+});
+
+// Function to handle back to page 2 button click from page 3
+document.getElementById('backToPage2').addEventListener('click', function () {
+    // Switch back to page 2 (countdowns display)
+    showPage('page2');
 });
 
 // Function to switch between pages
@@ -142,17 +272,10 @@ document.addEventListener('DOMContentLoaded', function () {
     twemoji.parse(document.body);
 });
 
-// Add event listener for tabbing between date and time inputs
-document.getElementById('eventDate').addEventListener('keydown', function (event) {
-    if (event.key === 'Tab' && !event.shiftKey) {
-        event.preventDefault();
-        document.getElementById('eventTime').focus();
-    }
-});
-
-document.getElementById('eventTime').addEventListener('keydown', function (event) {
-    if (event.key === 'Tab' && event.shiftKey) {
-        event.preventDefault();
-        document.getElementById('eventDate').focus();
-    }
-});
+// Function to switch between pages
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+    });
+    document.getElementById(pageId).style.display = 'block';
+}

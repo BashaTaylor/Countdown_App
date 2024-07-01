@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <!-- Include Twemoji library for emoji support -->
     <script defer src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
 </head>
-
 <body>
     <div id="page1" class="page">
         <h2>Add Countdown</h2>
@@ -25,6 +23,7 @@
             <input type="text" id="eventEmoji" name="eventEmoji" placeholder="Select an emoji"><br><br>
 
             <button type="submit">Add Countdown</button>
+            <button id="viewAllButton">View All Countdowns</button>
         </form>
     </div>
 
@@ -34,7 +33,14 @@
         <div class="page-buttons">
             <button id="backButton">Back</button>
             <button id="saveButton">Save Changes</button>
+            <button id="viewAllButton">View All Countdowns</button>
         </div>
+    </div>
+
+    <div id="page3" class="page">
+        <h2>All Countdowns</h2>
+        <div id="allCountdowns"></div>
+        <button id="backToPage2">Back to Countdowns</button>
     </div>
 
     <script src="script.js"></script>
