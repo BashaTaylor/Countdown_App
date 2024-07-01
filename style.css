@@ -1,7 +1,7 @@
 /* Basic reset and styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #9fe5f5;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
@@ -20,7 +20,8 @@ body {
 .countdown-item {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 15px;
+    border-radius: 10px;
+    /* Updated border radius */
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -34,15 +35,15 @@ body {
 
 .countdown-item h3 {
     margin-top: 0;
+    color: #333;
+    /* Adjusted text color */
 }
 
-.event-image {
-    max-width: 100%;
-    height: auto;
+.countdown-item p {
     margin-bottom: 10px;
 }
 
-.emoji {
+.countdown-item .emoji {
     font-size: 24px;
     /* Adjust size as needed */
     margin-bottom: 10px;
@@ -51,7 +52,8 @@ body {
 .add-form {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 15px;
+    border-radius: 10px;
+    /* Updated border radius */
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -81,16 +83,19 @@ body {
 }
 
 .page-buttons button {
-    background-color: #3df8ec;
+    background-color: #007BFF;
+    /* Updated button background color */
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    border-radius: 15px;
+    border-radius: 10px;
+    /* Updated border radius */
     margin-right: 10px;
     /* Add spacing between buttons */
 }
 
 .page-buttons button:hover {
-    background-color: #3df8ec;
+    background-color: #0056b3;
+    /* Darker shade on hover */
 }
