@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include Twemoji library for emoji support -->
+    <script defer src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"></script>
+</head>
+
+<body>
+    <div id="page1" class="page">
+        <h2>Add Countdown</h2>
+        <form id="addCountdownForm" class="add-form">
+            <label for="eventTitle">Event Name:</label>
+            <input type="text" id="eventTitle" name="eventTitle" required><br><br>
+
+            <label for="eventDate">Event Date:</label>
+            <input type="datetime-local" id="eventDate" name="eventDate" required><br><br>
+
+            <label for="eventImage">Event Emoji:</label>
+            <input type="text" id="eventEmoji" name="eventEmoji" placeholder="Select an emoji"><br><br>
+
+            <label for="eventImage">Event Image URL:</label>
+            <input type="text" id="eventImage" name="eventImage"><br><br>
+
+            <button type="submit">Add Countdown</button>
+        </form>
+    </div>
+
+    <div id="page2" class="page">
+        <h2>Countdowns</h2>
+        <div id="countdowns"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
