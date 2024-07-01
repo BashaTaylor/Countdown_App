@@ -19,20 +19,21 @@ body {
 }
 
 .countdown-item {
+    /* Existing styles */
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    /* Updated border radius */
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
-    /* Reset text alignment for contents */
-    display: inline-block;
     width: 90%;
     max-width: 600px;
-    /* Limit max width for readability */
+    /* New styles for column layout */
+    display: block;
+    margin: 0 auto 20px;
 }
+
 
 .countdown-item h3 {
     margin-top: 0;
