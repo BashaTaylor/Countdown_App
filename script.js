@@ -113,45 +113,72 @@ function displayAllCountdowns() {
     allCountdownsContainer.innerHTML = '';
 
     countdownsData.forEach((countdown, index) => {
-        const endTime = new Date(countdown.date);
-        const time = getTimeRemaining(endTime);
-        const formattedDate = endTime.toLocaleString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
-        });
-
-        const countdownElem = document.createElement('div');
-        countdownElem.classList.add('countdown-item');
-        countdownElem.innerHTML = `
-            <h3>${countdown.title}</h3>
-            <div class="emoji">${countdown.emoji}</div>
-            <p>${formattedDate}</p>
-            <div class="notes"></div> <!-- Container for notes -->
-            <div class="countdown">
-                <span>${time.days}d</span>
-                <span>${time.hours}h</span>
-                <span>${time.minutes}m</span>
-                <span>${time.seconds}s</span>
-            </div>
-            <button class="edit-btn" data-index="${index}">Edit</button>
-        `;
+        const countdownElem = createCountdownElement(countdown, index);
         allCountdownsContainer.appendChild(countdownElem);
 
         // Display existing notes
         displayNotes(index);
-
-        // Add event listener for edit button
-        const editBtn = countdownElem.querySelector('.edit-btn');
-        editBtn.addEventListener('click', function () {
-            editCountdown(index);
-        });
     });
+
+    // Update countdowns every second
+    setInterval(() => {
+        countdownsData.forEach((countdown, index) => {
+            const countdownElem = allCountdownsContainer.querySelector(`#countdown-${index}`);
+            if (countdownElem) {
+                const endTime = new Date(countdown.date);
+                const time = getTimeRemaining(endTime);
+
+                // Update the countdown timer elements
+                countdownElem.querySelector('.countdown .days').textContent = `${time.days}d`;
+                countdownElem.querySelector('.countdown .hours').textContent = `${time.hours}h`;
+                countdownElem.querySelector('.countdown .minutes').textContent = `${time.minutes}m`;
+                countdownElem.querySelector('.countdown .seconds').textContent = `${time.seconds}s`;
+            }
+        });
+    }, 1000); // Update every second (1000 ms)
 }
+
+// Function to create a countdown element
+function createCountdownElement(countdown, index) {
+    const endTime = new Date(countdown.date);
+    const time = getTimeRemaining(endTime);
+
+    const formattedDate = endTime.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    });
+
+    const countdownElem = document.createElement('div');
+    countdownElem.id = `countdown-${index}`;
+    countdownElem.classList.add('countdown-item');
+    countdownElem.innerHTML = `
+        <h3>${countdown.title}</h3>
+        <div class="emoji">${countdown.emoji}</div>
+        <p>${formattedDate}</p>
+        <div class="notes"></div> <!-- Container for notes -->
+        <div class="countdown">
+            <span class="days">${time.days}d</span>
+            <span class="hours">${time.hours}h</span>
+            <span class="minutes">${time.minutes}m</span>
+            <span class="seconds">${time.seconds}s</span>
+        </div>
+        <button class="edit-btn" data-index="${index}">Edit</button>
+    `;
+
+    // Add event listener for edit button
+    const editBtn = countdownElem.querySelector('.edit-btn');
+    editBtn.addEventListener('click', function () {
+        editCountdown(index);
+    });
+
+    return countdownElem;
+}
+
 
 // Function to handle form submission
 document.getElementById('addCountdownForm').addEventListener('submit', function (event) {

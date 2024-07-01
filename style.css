@@ -18,6 +18,9 @@ body {
     display: block;
 }
 
+.countdown-menu {
+    margin-top: 10px;
+}
 .countdown-item {
     /* Existing styles */
     background-color: #fff;
@@ -95,7 +98,10 @@ input {
     margin-top: 20px;
 }
 
-.edit-btn {
+.edit-btn,
+.add-note-btn,
+.archive-btn,
+.delete-btn {
     background-color:#007BFF;
     border-radius: 10px;
     padding: 5px;
@@ -129,4 +135,18 @@ input {
 
 #backToPage2:hover {
     background-color: #0056b3;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px; /* Adjust spacing between buttons */
+}
+
+/* Style individual buttons */
+.countdown-item .button-row button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
