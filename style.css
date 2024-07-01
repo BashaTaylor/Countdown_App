@@ -1,7 +1,7 @@
 /* Basic reset and styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background: linear-gradient(to right, rgb(7, 118, 253), white , rgba(144, 249, 249, 0.821) );
     margin: 0;
     padding: 0;
 }
@@ -11,7 +11,7 @@ body {
     text-align: center;
     /* Center contents */
     padding: 20px;
-    background: linear-gradient(to right, rgb(7, 118, 253), white , rgba(144, 249, 249, 0.821) );
+    
 }
 
 .page.active {
