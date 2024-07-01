@@ -87,6 +87,14 @@ function displayCountdowns() {
     });
 }
 
+// Function to update countdowns every second
+function updateCountdowns() {
+    displayCountdowns();
+    setTimeout(updateCountdowns, 1000); // Update every second
+}
+
+// Call this to start updating countdowns
+updateCountdowns();
 // Function to display notes for a specific countdown
 function displayNotes(index) {
     const notesContainer = document.querySelectorAll('.countdown-item .notes')[index];
@@ -106,6 +114,7 @@ function displayAllCountdowns() {
 
     countdownsData.forEach((countdown, index) => {
         const endTime = new Date(countdown.date);
+        const time = getTimeRemaining(endTime);
         const formattedDate = endTime.toLocaleString('en-US', {
             weekday: 'long',
             year: 'numeric',
@@ -123,6 +132,12 @@ function displayAllCountdowns() {
             <div class="emoji">${countdown.emoji}</div>
             <p>${formattedDate}</p>
             <div class="notes"></div> <!-- Container for notes -->
+            <div class="countdown">
+                <span>${time.days}d</span>
+                <span>${time.hours}h</span>
+                <span>${time.minutes}m</span>
+                <span>${time.seconds}s</span>
+            </div>
             <button class="edit-btn" data-index="${index}">Edit</button>
         `;
         allCountdownsContainer.appendChild(countdownElem);
