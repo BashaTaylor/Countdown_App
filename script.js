@@ -127,23 +127,26 @@ function displayAllCountdowns() {
         });
 
         const countdownElem = document.createElement('div');
-        countdownElem.classList.add('countdown-item');
-        countdownElem.innerHTML = `
-            <div class="countdown-icon">
-                <div class="icon-circle">
-                    <span class="emoji">${countdown.emoji}</span>
-                </div>
-            </div>
-            <div class="countdown-details">
-                <h3 class="countdown-title">${countdown.title}</h3>
-                <p class="countdown-note">${countdown.notes.length > 0 ? countdown.notes[0] : 'No notes'}</p>
-                <p class="countdown-date-time">${formattedDate}</p>
-            </div>
-            <div class="countdown-days-left">
-                <p class="days-number">${time.days}</p>
-                <p class="days-text">days left</p>
-            </div>
-        `;
+countdownElem.classList.add('countdown-item');
+countdownElem.innerHTML = `
+    <div class="countdown-icon">
+        <div class="icon-circle">
+            <span class="emoji">${countdown.emoji}</span>
+        </div>
+    </div>
+    <div class="countdown-details">
+        <h3 class="countdown-title">${countdown.title}</h3>
+        <p class="countdown-note">${countdown.notes.length > 0 ? countdown.notes[0] : 'No notes'}</p>
+        <p class="countdown-date-time">${formattedDate}</p>
+    </div>
+    <div class="countdown-days-left">
+        <p class="days-number">${time.days}</p>
+        <p class="days-text">days left</p>
+    </div>
+`;
+
+// Rest of your code for event listeners and appending countdownElem
+
         allCountdownsContainer.appendChild(countdownElem);
 
         // Add click event listener to display this countdown on page 2
