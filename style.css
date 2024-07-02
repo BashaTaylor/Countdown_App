@@ -23,7 +23,7 @@ body {
 }
 
 .countdown-item {
-    background-color: #fff;
+    background-color: #eea450;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
@@ -84,19 +84,85 @@ body {
     margin: 0 5px;
 }
 
+.countdown-container {
+    justify-content: center;
+}
+
+/* Styles for countdown items on page 3 */
+.countdown-item3 {
+    display: flex; /* Use flexbox to arrange items horizontally */
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto; /* Center the countdown item */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #eea450;
+}
+
+.countdown-item3 .countdown-icon {
+    flex: 0 0 auto; /* Ensure icon column doesn't grow or shrink */
+    margin-right: 20px; /* Add some space between icon and details */
+    font-size: 48px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.countdown-item3 .countdown-details {
+    flex: 1 1 auto; /* Allow details column to grow */
+}
+
+.countdown-item3 .countdown-days-left {
+    flex: 0 0 auto; /* Ensure days left column doesn't grow or shrink */
+    text-align: center;
+}
+
+.countdown-item3 .countdown-days-left .days-number {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.countdown-item3 .countdown-days-left .days-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.countdown-days-left {
+    background-color: #007BFF;
+    padding: 15px;
+    color:Black;
+    border-radius: 10px;
+    box-shadow: 0 5px 8px rgba(204, 203, 203, 0.1);
+}
+
+.days-text {
+    color: black;
+}
+
 input {
     border-radius: 5px;
     border-color: lightgray;
 }
 
 .add-form {
-    background-color: #fff;
+    background-color: #eea450;
     border: 1px solid #ddd;
     border-radius: 10px;
     /* Updated border radius */
     padding: 15px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
     /* Reset text alignment for contents */
     display: inline-block;
@@ -181,4 +247,3 @@ button:hover {
     background-color: #0056b3;
     /* Darker shade on hover */
 }
-

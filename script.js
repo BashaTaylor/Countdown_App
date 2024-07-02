@@ -17,6 +17,8 @@ function getTimeRemaining(endTime) {
     };
 }
 
+
+
 // Function to display countdowns on page 2
 function displayCountdowns() {
     const countdownsContainer = document.getElementById('countdowns');
@@ -107,6 +109,9 @@ function displayNotes(notesContainer, index, pageId) {
     });
 }
 
+
+
+
 // Function to display all countdowns on page 3
 function displayAllCountdowns() {
     const allCountdownsContainer = document.getElementById('allCountdowns');
@@ -127,7 +132,7 @@ function displayAllCountdowns() {
         });
 
         const countdownElem = document.createElement('div');
-countdownElem.classList.add('countdown-item');
+countdownElem.classList.add('countdown-item3');
 countdownElem.innerHTML = `
     <div class="countdown-icon">
         <div class="icon-circle">
