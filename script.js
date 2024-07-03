@@ -17,7 +17,7 @@ function getTimeRemaining(endTime) {
     };
 }
 
-
+// Page 2
 
 // Function to display countdowns on page 2
 function displayCountdowns() {
@@ -110,7 +110,7 @@ function displayNotes(notesContainer, index, pageId) {
 }
 
 
-
+// Page 3
 
 // Function to display all countdowns on page 3
 function displayAllCountdowns() {
@@ -150,18 +150,10 @@ countdownElem.innerHTML = `
     </div>
 `;
 
-// Rest of your code for event listeners and appending countdownElem
+// Adding Function to initialize countdown items on page 3
 
-        allCountdownsContainer.appendChild(countdownElem);
 
-        // Add click event listener to display this countdown on page 2
-        countdownElem.addEventListener('click', function () {
-            displayCountdownOnPage2(index);
-        });
-    });
-}
 
-// Function to display a specific countdown on page 2
 function displayCountdownOnPage2(index) {
     // Store the selected countdown separately or create a new array
     const selectedCountdown = countdownsData[index];
@@ -218,6 +210,76 @@ function displaySingleCountdown(countdown) {
     // Add event listeners for buttons (add note, archive, delete, edit)
     // You can reuse the existing event listener logic or add new ones here.
 }
+
+
+// Rest of your code for event listeners and appending countdownElem
+
+        allCountdownsContainer.appendChild(countdownElem);
+
+        // Add click event listener to display this countdown on page 2
+        countdownElem.addEventListener('click', function () {
+            displayCountdownOnPage2(index);
+        });
+    });
+}
+
+// Function to display a specific countdown on page 2
+function displayCountdownOnPage2(index) {
+    const selectedCountdown = countdownsData[index];
+
+    // Switch to page 2 (countdown display)
+    showPage('page2');
+
+    // Clear existing countdowns in #countdowns container
+    const countdownContainer = document.getElementById('countdowns');
+    countdownContainer.innerHTML = '';
+
+    // Display the selected countdown on page 2
+    displaySingleCountdown(selectedCountdown);
+}
+
+function displaySingleCountdown(countdown) {
+    const countdownContainer = document.getElementById('countdowns');
+
+    const endTime = new Date(countdown.date);
+    const time = getTimeRemaining(endTime);
+
+    const formattedDate = endTime.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    });
+
+    const countdownElem = document.createElement('div');
+    countdownElem.classList.add('countdown-item');
+    countdownElem.innerHTML = `
+        <h3>${countdown.title}</h3>
+        <div class="emoji">${countdown.emoji}</div>
+        <p>${formattedDate}</p>
+        <div class="notes"></div>
+        <div class="countdown">
+            <span class="days">${time.days}d</span>
+            <span class="hours">${time.hours}h</span>
+            <span class="minutes">${time.minutes}m</span>
+            <span class="seconds">${time.seconds}s</span>
+        </div>
+        <div class="button-row">
+            <button class="add-note-btn">Add a Note</button>
+            <button class="archive-btn">Archive</button>
+            <button class="delete-btn">Delete</button>
+            <button class="edit-btn">Edit</button>
+        </div>
+    `;
+    countdownContainer.appendChild(countdownElem);
+
+    // Display existing notes
+    displayNotes(countdownElem.querySelector('.notes'), countdownsData.indexOf(countdown), 'page2');
+}
+
 
 
 
@@ -449,3 +511,4 @@ function addNoteToNewCountdown(noteText) {
     alert(`Note added: ${noteText}`);
     // You would typically add this note to your countdownsData array and update UI accordingly
 }
+
