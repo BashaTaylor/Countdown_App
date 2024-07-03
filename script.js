@@ -163,15 +163,62 @@ countdownElem.innerHTML = `
 
 // Function to display a specific countdown on page 2
 function displayCountdownOnPage2(index) {
-    // Set countdownData to show only the selected countdown
-    countdownsData = [countdownsData[index]];
+    // Store the selected countdown separately or create a new array
+    const selectedCountdown = countdownsData[index];
 
     // Switch to page 2 (countdown display)
     showPage('page2');
 
-    // Update the display on page 2
-    displayCountdown();
+    // Update the display on page 2 with the selected countdown
+    displaySingleCountdown(selectedCountdown);
 }
+
+function displaySingleCountdown(countdown) {
+    const countdownContainer = document.getElementById('countdowns');
+    countdownContainer.innerHTML = ''; // Clear existing countdowns
+
+    const endTime = new Date(countdown.date);
+    const time = getTimeRemaining(endTime);
+
+    const formattedDate = endTime.toLocaleString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    });
+
+    const countdownElem = document.createElement('div');
+    countdownElem.classList.add('countdown-item');
+    countdownElem.innerHTML = `
+        <h3>${countdown.title}</h3>
+        <div class="emoji">${countdown.emoji}</div>
+        <p>${formattedDate}</p>
+        <div class="notes"></div> <!-- Container for notes -->
+        <div class="countdown">
+            <span class="days">${time.days}d</span>
+            <span class="hours">${time.hours}h</span>
+            <span class="minutes">${time.minutes}m</span>
+            <span class="seconds">${time.seconds}s</span>
+        </div>
+        <div class="button-row">
+            <button class="add-note-btn">Add a Note</button>
+            <button class="archive-btn">Archive</button>
+            <button class="delete-btn">Delete</button>
+            <button class="edit-btn">Edit</button>
+        </div>
+    `;
+    countdownContainer.appendChild(countdownElem);
+
+    // Display existing notes
+    displayNotes(countdownElem.querySelector('.notes'), countdownsData.indexOf(countdown), 'page2');
+
+    // Add event listeners for buttons (add note, archive, delete, edit)
+    // You can reuse the existing event listener logic or add new ones here.
+}
+
 
 
 // Function to create a countdown element
@@ -350,6 +397,12 @@ document.getElementById('backToPage2').addEventListener('click', function () {
     // Switch back to page 2 (countdowns display)
     showPage('page2');
 });
+
+// Function to handle back to page 1 (Home) button click from page 3
+document.getElementById('backToPage1').addEventListener('click', function () {
+    showPage('page1');
+});
+
 
 // Function to switch between pages
 function showPage(pageId) {
