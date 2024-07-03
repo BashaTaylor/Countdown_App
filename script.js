@@ -509,3 +509,159 @@ function addNoteToNewCountdown(noteText) {
     alert(`Note added: ${noteText}`);
     // You would typically add this note to your countdownsData array and update UI accordingly
 }
+
+// Function to load countdowns from localStorage on page load
+function loadCountdownsFromLocalStorage() {
+    const storedCountdowns = localStorage.getItem('countdownsData');
+    if (storedCountdowns) {
+        countdownsData = JSON.parse(storedCountdowns);
+    }
+}
+
+// Function to save countdowns to localStorage
+function saveCountdownsToLocalStorage() {
+    localStorage.setItem('countdownsData', JSON.stringify(countdownsData));
+}
+
+// Call function to load countdowns from localStorage on page load
+loadCountdownsFromLocalStorage();
+
+// Function to handle form submission
+document.getElementById('addCountdownForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const eventTitle = document.getElementById('eventTitle').value;
+    const eventDate = document.getElementById('eventDate').value;
+    const eventTime = document.getElementById('eventTime').value;
+    const eventEmoji = document.getElementById('eventEmoji').value;
+
+    // Combine date and time into a single date-time string
+    const eventDateTime = `${eventDate}T${eventTime}`;
+
+    // Add the new countdown to the data array
+    countdownsData.push({
+        title: eventTitle,
+        date: eventDateTime,
+        emoji: eventEmoji,
+        notes: [] // Initialize notes array
+    });
+
+    // Save countdowns to localStorage
+    saveCountdownsToLocalStorage();
+
+    // Switch to page 2 (countdowns display)
+    showPage('page2');
+
+    // Update the display on page 2
+    displayCountdowns();
+
+    // Clear form fields
+    document.getElementById('addCountdownForm').reset();
+});
+
+// Function to handle countdown editing
+function editCountdown(index) {
+    const editedCountdown = countdownsData[index];
+    const confirmEdit = confirm(`Do you want to edit "${editedCountdown.title}"?`);
+
+    if (confirmEdit) {
+        // Simulate editing for demonstration (replace with your edit logic)
+        const newTitle = prompt('Enter new title:', editedCountdown.title);
+        const newDate = prompt('Enter new date:', editedCountdown.date);
+        const newTime = prompt('Enter new time:', editedCountdown.date.split('T')[1]); // Extract time part
+
+        // Update the countdown data
+        countdownsData[index] = {
+            title: newTitle || editedCountdown.title,
+            date: newDate ? `${newDate}T${newTime}` : editedCountdown.date, // Combine date and existing time
+            emoji: editedCountdown.emoji,
+            notes: editedCountdown.notes // Retain existing notes
+        };
+
+        // Save countdowns to localStorage after edit
+        saveCountdownsToLocalStorage();
+
+        // Update the display on page 2
+        displayCountdowns();
+        // Update the display on page 3
+        displayAllCountdowns();
+    }
+}
+
+// Function to delete a countdown
+function deleteCountdown(index) {
+    const confirmDelete = confirm(`Do you want to delete "${countdownsData[index].title}"?`);
+
+    if (confirmDelete) {
+        countdownsData.splice(index, 1); // Remove from countdownsData array
+
+        // Save countdowns to localStorage after delete
+        saveCountdownsToLocalStorage();
+
+        // Update the display on page 2
+        displayCountdowns();
+        // Update the display on page 3
+        displayAllCountdowns();
+    }
+}
+
+// Function to handle back button click
+document.getElementById('backButton').addEventListener('click', function () {
+    // Switch back to page 1 (add countdown form)
+    showPage('page1');
+});
+
+// Function to handle view all button click on page 1
+document.getElementById('viewAllButtonPage1').addEventListener('click', function () {
+    // Switch to page 3 (all countdowns)
+    showPage('page3');
+
+    // Display all countdowns on page 3
+    displayAllCountdowns();
+});
+
+// Function to handle view all button click on page 2
+document.getElementById('viewAllButtonPage2').addEventListener('click', function () {
+    // Switch to page 3 (all countdowns)
+    showPage('page3');
+
+    // Display all countdowns on page 3
+    displayAllCountdowns();
+});
+
+// Function to handle back to page 2 button click from page 3
+document.getElementById('backToPage2').addEventListener('click', function () {
+    // Switch back to page 2 (countdowns display)
+    showPage('page2');
+});
+
+// Function to handle back to page 1 (Home) button click from page 3
+document.getElementById('backToPage1').addEventListener('click', function () {
+    showPage('page1');
+});
+
+// Function to switch between pages
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.style.display = 'none';
+    });
+    document.getElementById(pageId).style.display = 'block';
+}
+
+// Initial display (page 1)
+showPage('page1');
+
+// Initialize Twemoji for emoji support
+document.addEventListener('DOMContentLoaded', function () {
+    twemoji.parse(document.body);
+});
+
+// Call this to start updating countdowns
+updateCountdowns();
+
+// Update countdowns every second
+function updateCountdowns() {
+    displayCountdowns();
+    setTimeout(updateCountdowns, 1000); // Update every second
+}
+
