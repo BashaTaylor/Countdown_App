@@ -132,8 +132,8 @@ function displayAllCountdowns() {
         });
 
         const countdownElem = document.createElement('div');
-countdownElem.classList.add('countdown-item3');
-countdownElem.innerHTML = `
+        countdownElem.classList.add('countdown-item3');
+        countdownElem.innerHTML = `
     <div class="countdown-icon">
         <div class="icon-circle">
             <span class="emoji">${countdown.emoji}</span>
@@ -150,41 +150,39 @@ countdownElem.innerHTML = `
     </div>
 `;
 
-// Adding Function to initialize countdown items on page 3
 
+        // Function to display a specific countdown on page 2
+        function displayCountdownOnPage2(index) {
+            // Store the selected countdown separately or create a new array
+            const selectedCountdown = countdownsData[index];
 
+            // Switch to page 2 (countdown display)
+            showPage('page2');
 
-function displayCountdownOnPage2(index) {
-    // Store the selected countdown separately or create a new array
-    const selectedCountdown = countdownsData[index];
+            // Update the display on page 2 with the selected countdown
+            displaySingleCountdown(selectedCountdown);
+        }
 
-    // Switch to page 2 (countdown display)
-    showPage('page2');
+        function displaySingleCountdown(countdown) {
+            const countdownContainer = document.getElementById('countdowns');
+            countdownContainer.innerHTML = ''; // Clear existing countdowns
 
-    // Update the display on page 2 with the selected countdown
-    displaySingleCountdown(selectedCountdown);
-}
+            const endTime = new Date(countdown.date);
+            const time = getTimeRemaining(endTime);
 
-function displaySingleCountdown(countdown) {
-    const countdownContainer = document.getElementById('countdowns');
-    countdownContainer.innerHTML = ''; // Clear existing countdowns
+            const formattedDate = endTime.toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
 
-    const endTime = new Date(countdown.date);
-    const time = getTimeRemaining(endTime);
-
-    const formattedDate = endTime.toLocaleString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-    });
-
-    const countdownElem = document.createElement('div');
-    countdownElem.classList.add('countdown-item');
-    countdownElem.innerHTML = `
+            const countdownElem = document.createElement('div');
+            countdownElem.classList.add('countdown-item');
+            countdownElem.innerHTML = `
         <h3>${countdown.title}</h3>
         <div class="emoji">${countdown.emoji}</div>
         <p>${formattedDate}</p>
@@ -202,17 +200,17 @@ function displaySingleCountdown(countdown) {
             <button class="edit-btn">Edit</button>
         </div>
     `;
-    countdownContainer.appendChild(countdownElem);
+            countdownContainer.appendChild(countdownElem);
 
-    // Display existing notes
-    displayNotes(countdownElem.querySelector('.notes'), countdownsData.indexOf(countdown), 'page2');
+            // Display existing notes
+            displayNotes(countdownElem.querySelector('.notes'), countdownsData.indexOf(countdown), 'page2');
 
-    // Add event listeners for buttons (add note, archive, delete, edit)
-    // You can reuse the existing event listener logic or add new ones here.
-}
+            // Add event listeners for buttons (add note, archive, delete, edit)
+            // You can reuse the existing event listener logic or add new ones here.
+        }
 
 
-// Rest of your code for event listeners and appending countdownElem
+        // Rest of your code for event listeners and appending countdownElem
 
         allCountdownsContainer.appendChild(countdownElem);
 
@@ -511,4 +509,3 @@ function addNoteToNewCountdown(noteText) {
     alert(`Note added: ${noteText}`);
     // You would typically add this note to your countdownsData array and update UI accordingly
 }
-
